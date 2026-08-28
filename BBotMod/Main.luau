@@ -26,20 +26,20 @@
         Connections = {},   
         Notifications = {Notifs = {}},
         OpenElement = {}; -- type: table or userdata
-        EasingStyle = Enum.EasingStyle.Quint;
-        TweeningSpeed = 0.25
+        EasingStyle = Enum.EasingStyle.Cubic;
+        TweeningSpeed = 0.15
     }
     
     local themes = {
         preset = {
-            inline = rgb(72, 74, 84);
-            gradient = rgb(58, 60, 70);
-            outline = rgb(30, 31, 38);
-            accent = rgb(168, 226, 235);
-            background = rgb(45, 47, 55);
-            text_color = rgb(244, 246, 250);
+            inline = rgb(35, 31, 48);
+            gradient = rgb(27, 24, 38);
+            outline = rgb(12, 10, 20);
+            accent = rgb(178, 148, 240);
+            background = rgb(20, 18, 29);
+            text_color = rgb(244, 243, 249);
             text_outline = rgb(0, 0, 0);
-            tab_background = rgb(52, 54, 63);
+            tab_background = rgb(24, 21, 34);
         },
         utility = {},
         gradients = {
@@ -993,7 +993,7 @@
                             Text = tab:gsub("Tab", "");
                             Parent = Temp.Button;
                             Name = "\0";
-                            BackgroundTransparency = _==1 and 1;
+                            BackgroundTransparency = (_ == 1) and 1 or 0;
                             Size = dim2(0, 0, 1, 0);
                             BorderSizePixel = 0;
                             AutomaticSize = Enum.AutomaticSize.XY;
@@ -1020,7 +1020,7 @@
                             Position = dim2(0, 0, 1, 1);
                             Size = dim2(1, 0, 0, 1);
                             ZIndex = 3;
-                            BackgroundTransparency = _==1 and 0;
+                            BackgroundTransparency = (_ == 1) and 0 or 1;
                             BorderSizePixel = 0;
                             BackgroundColor3 = themes.preset.gradient
                         });	Library:Themify(Temp.Fill, "gradient", "BackgroundColor3")
@@ -3114,7 +3114,6 @@
     
                 if not Cfg.TabInfo then
                     print("new tab")
-                    SubItems.Fill.Size = dim2(1, -2, 0, 1);
                     SubItems.TextPadding.PaddingRight = dim(0, 12);
                     Data.OpenTab()
                 end
@@ -4817,10 +4816,10 @@
             Section:Toggle({Name = "Toggle Status", Flag = "Status", Callback = window.ToggleStatus})
             Section:Textbox({Name = "Custom Menu Name", Callback = window.ChangeTitle, Default = window.Name, Placeholder = "Title name here..."})
             Section:Textbox({Name = "Custom Watermark Name", Callback = window.ChangeWatermarkTitle, Default = window.Name .. ".lua", Placeholder = "Title name here..."})
-            Section:Dropdown({Name = "Tweening Style", Options = {"Linear", "Sine", "Back", "Quad", "Quart", "Quint", "Bounce", "Elastic", "Exponential", "Circular", "Cubic"}, Flag = "LibraryEasingStyle", Default = "Quint", Callback = function(Option)
+            Section:Dropdown({Name = "Tweening Style", Options = {"Linear", "Sine", "Back", "Quad", "Quart", "Quint", "Bounce", "Elastic", "Exponential", "Circular", "Cubic"}, Flag = "LibraryEasingStyle", Default = "Cubic", Callback = function(Option)
                 Library.EasingStyle = Enum.EasingStyle[Option]
             end});
-            Section:Slider({Name = "Tweening Speed", Min = 0, Max = 10, Decimal = 0.01, Suffix = "s", Default = 0.25, Flag = "TweeningSpeed", Callback = function(int)
+            Section:Slider({Name = "Tweening Speed", Min = 0, Max = 10, Decimal = 0.01, Suffix = "s", Default = 0.15, Flag = "TweeningSpeed", Callback = function(int)
                 Library.TweeningSpeed = int
             end})
 
@@ -5025,66 +5024,66 @@
     --
 -- 
 
-local Window = Library:Window({name = "nebula"})
+-- local Window = Library:Window({name = "nebula"})
 
-local Tabs = {
-    Combat = Window:Tab({Name = "Combat"}),
-    Visuals = Window:Tab({Name = "Visuals"}),
-    Players = Window:Tab({Name = "Players"})
-}
+-- local Tabs = {
+--     Combat = Window:Tab({Name = "Combat"}),
+--     Visuals = Window:Tab({Name = "Visuals"}),
+--     Players = Window:Tab({Name = "Players"})
+-- }
 
-Tabs.Players:PlayerList({}) -- Tabs.Players.GetPriority(player.Name)
+-- Tabs.Players:PlayerList({}) -- Tabs.Players.GetPriority(player.Name)
 
-local Section = Tabs.Combat:Section({Name = "Section", Side = "Left"})
+-- local Section = Tabs.Combat:Section({Name = "Section", Side = "Left"})
 
-for i = 1, 3 do
-    local Toggle = Section:Toggle({Name = "Toggle"})
-    Toggle:Colorpicker({Name = "Hello!", Flag = "This is a flag" .. i}) -- For animation pickers you need to either designate speific names or flags to differentiate animations. else itll break
-    Toggle:Keybind({Name = "hello!", Callback = function(bool) print(bool) end, ShowInList = true})
-    Section:Button({Name = "Button", Callback = function() print("I have been clicked!") end})
-end 
+-- for i = 1, 3 do
+--     local Toggle = Section:Toggle({Name = "Toggle"})
+--     Toggle:Colorpicker({Name = "Hello!", Flag = "This is a flag" .. i}) -- For animation pickers you need to either designate speific names or flags to differentiate animations. else itll break
+--     Toggle:Keybind({Name = "hello!", Callback = function(bool) print(bool) end, ShowInList = true})
+--     Section:Button({Name = "Button", Callback = function() print("I have been clicked!") end})
+-- end 
 
-Section:Slider({Name = "Slider", Callback = function(int) print(int) end})
-Section:Dropdown({Name = "Hello!", Options = {"1", "2", "3"}})
+-- Section:Slider({Name = "Slider", Callback = function(int) print(int) end})
+-- Section:Dropdown({Name = "Hello!", Options = {"1", "2", "3"}})
 
-local Toggle = Section:Toggle({Name = "Group", Folding = true})
-Toggle:Toggle({Name = "Toggle"})
-Toggle:Slider({Name = "Slider", Callback = function(int) print(int) end})
-Toggle:Dropdown({Name = "Hello!", Options = {"1", "2", "3"}, Multi = true})
+-- local Toggle = Section:Toggle({Name = "Group", Folding = true})
+-- Toggle:Toggle({Name = "Toggle"})
+-- Toggle:Slider({Name = "Slider", Callback = function(int) print(int) end})
+-- Toggle:Dropdown({Name = "Hello!", Options = {"1", "2", "3"}, Multi = true})
 
-for i = 1, 5 do 
-    Toggle = Toggle:Toggle({Name = "Group", Folding = true})
-    Toggle:Toggle({Name = "Toggle"})
-    Toggle:Slider({Name = "Slider", Callback = function(int) print(int) end})
-    Toggle:Dropdown({Name = "Hello!", Options = {"1", "2", "3"}})
-end
+-- for i = 1, 5 do 
+--     Toggle = Toggle:Toggle({Name = "Group", Folding = true})
+--     Toggle:Toggle({Name = "Toggle"})
+--     Toggle:Slider({Name = "Slider", Callback = function(int) print(int) end})
+--     Toggle:Dropdown({Name = "Hello!", Options = {"1", "2", "3"}})
+-- end
 
-local Tab1, Tab2, Tab3 = Tabs.Combat:MultiSection({Tabs = {"Hi", "Hello", "Sick"}, Side = "Right", Size = 1})
-for _,tab in {Tab1, Tab2, Tab3} do 
-    tab:Toggle({Name = "Toggle"})
-    tab:Slider({Name = "Slider", Callback = function(int) print(int) end})
-    tab:Dropdown({Name = "Hello!", Options = {"1", "2", "3"}})
+-- local Tab1, Tab2, Tab3 = Tabs.Combat:MultiSection({Tabs = {"Hi", "Hello", "Sick"}, Side = "Right", Size = 1})
+-- for _,tab in {Tab1, Tab2, Tab3} do 
+--     tab:Toggle({Name = "Toggle"})
+--     tab:Slider({Name = "Slider", Callback = function(int) print(int) end})
+--     tab:Dropdown({Name = "Hello!", Options = {"1", "2", "3"}})
 
-    local Toggle = tab:Toggle({Name = "Group", Folding = true})
-    Toggle:Toggle({Name = "Toggle"})
-    Toggle:Slider({Name = "Slider", Callback = function(int) print(int) end})
-    Toggle:Dropdown({Name = "Hello!", Options = {"1", "2", "3"}})
+--     local Toggle = tab:Toggle({Name = "Group", Folding = true})
+--     Toggle:Toggle({Name = "Toggle"})
+--     Toggle:Slider({Name = "Slider", Callback = function(int) print(int) end})
+--     Toggle:Dropdown({Name = "Hello!", Options = {"1", "2", "3"}})
 
-    for i = 1, 5 do 
-        Toggle = Toggle:Toggle({Name = "Group", Folding = true})
-        Toggle:Toggle({Name = "Toggle"})
-        Toggle:Slider({Name = "Slider", Callback = function(int) print(int) end})
-        Toggle:Dropdown({Name = "Hello!", Options = {"1", "2", "3"}})
-        Toggle:Textbox({Name = "Textbox", Default = "hELLO!", Callback = function(Text) print(Text) end})
-    end
-end
+--     for i = 1, 5 do 
+--         Toggle = Toggle:Toggle({Name = "Group", Folding = true})
+--         Toggle:Toggle({Name = "Toggle"})
+--         Toggle:Slider({Name = "Slider", Callback = function(int) print(int) end})
+--         Toggle:Dropdown({Name = "Hello!", Options = {"1", "2", "3"}})
+--         Toggle:Textbox({Name = "Textbox", Default = "hELLO!", Callback = function(Text) print(Text) end})
+--     end
+-- end
 
-Library:Configs(Window)
+-- Library:Configs(Window)
 
-for index, value in themes.preset do 
-    pcall(function()
-        Library:RefreshTheme(index, value)
-    end)
-end
+-- for index, value in themes.preset do 
+--     pcall(function()
+--         Library:RefreshTheme(index, value)
+--     end)
+-- end
 
 return Library, Notifications, themes

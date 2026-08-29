@@ -1,6 +1,5 @@
 -- Probably my newest code up to date thats available publicly. 
 -- Made around march - april 2025
--- example at bottom
 
 -- Variables 
     -- Services
@@ -3416,7 +3415,7 @@
                             Name = "\0";
                             Position = dim2(0, 2, 0, 0);
                             BorderColor3 = rgb(0, 0, 0);
-                            Size = dim2(0, 3, 1, 0);
+                            Size = dim2(0, 1, 1, 0);
                             BorderSizePixel = 0;
                             BackgroundColor3 = themes.preset.outline
                         });	Library:Themify(Items.GroupLine, "outline", "BackgroundColor3")

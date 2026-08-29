@@ -1,5 +1,6 @@
 -- Probably my newest code up to date thats available publicly. 
 -- Made around march - april 2025
+-- example at bottom
 
 -- Variables 
     -- Services
@@ -26,20 +27,20 @@
         Connections = {},   
         Notifications = {Notifs = {}},
         OpenElement = {}; -- type: table or userdata
-        EasingStyle = Enum.EasingStyle.Cubic;
+        EasingStyle = Enum.EasingStyle.Quad;
         TweeningSpeed = 0.15
     }
     
     local themes = {
         preset = {
-            inline = rgb(35, 31, 48);
-            gradient = rgb(27, 24, 38);
-            outline = rgb(12, 10, 20);
-            accent = rgb(178, 148, 240);
-            background = rgb(20, 18, 29);
-            text_color = rgb(244, 243, 249);
+            inline = rgb(58, 59, 66);
+            gradient = rgb(47, 48, 54);
+            outline = rgb(20, 20, 25);
+            accent = rgb(190, 214, 236);
+            background = rgb(36, 37, 43);
+            text_color = rgb(230, 230, 238);
             text_outline = rgb(0, 0, 0);
-            tab_background = rgb(24, 21, 34);
+            tab_background = rgb(54, 55, 62);
         },
         utility = {},
         gradients = {
@@ -112,7 +113,7 @@
         [Enum.KeyCode.Escape] = "ESC",
         [Enum.KeyCode.Space] = "SPC",
     }
-        
+
     Library.__index = Library
 
     for _,path in Library.Folders do 
@@ -907,7 +908,7 @@
                     Library:Create( "UIGradient" , {
                         Rotation = 90;
                         Parent = Items.Accent;
-                        Color = rgbseq{rgbkey(0, rgb(255, 255, 255)), rgbkey(1, rgb(158, 158, 158))}
+                        Color = rgbseq{rgbkey(0, rgb(200, 222, 242)), rgbkey(1, rgb(152, 184, 216))}
                     });
                     
                     Items.Outline = Library:Create( "Frame" , {
@@ -1018,7 +1019,7 @@
                             Parent = Temp.Button;
                             Name = "\0";
                             Position = dim2(0, 0, 1, 1);
-                            Size = dim2(1, 0, 0, 1);
+                            Size = dim2(1, (_ == #Tabs) and 0 or -2, 0, 1);
                             ZIndex = 3;
                             BackgroundTransparency = (_ == 1) and 0 or 1;
                             BorderSizePixel = 0;
@@ -1505,7 +1506,7 @@
                     Library:Create( "UIGradient" , {
                         Rotation = 90;
                         Parent = Items.Accent;
-                        Color = rgbseq{rgbkey(0, rgb(255, 255, 255)), rgbkey(1, rgb(158, 158, 158))}
+                        Color = rgbseq{rgbkey(0, rgb(200, 222, 242)), rgbkey(1, rgb(152, 184, 216))}
                     });
                     
                     Items.Outline = Library:Create( "Frame" , {
@@ -1644,7 +1645,7 @@
                     Library:Create( "UIGradient" , {
                         Rotation = 90;
                         Parent = Items.Accent;
-                        Color = rgbseq{rgbkey(0, rgb(255, 255, 255)), rgbkey(1, rgb(158, 158, 158))}
+                        Color = rgbseq{rgbkey(0, rgb(200, 222, 242)), rgbkey(1, rgb(152, 184, 216))}
                     });
                     
                     Items.Outline = Library:Create( "Frame" , {
@@ -1685,162 +1686,106 @@
                         Position = dim2(0, 50, 0, 500);
                         BorderColor3 = rgb(0, 0, 0);
                         BorderSizePixel = 0;
-                        AutomaticSize = Enum.AutomaticSize.XY;
-                        BackgroundColor3 = themes.preset.outline
-                    });	Library:Themify(Items.Keybind_List, "outline", "BackgroundColor3"); Library:Draggify(Items.Keybind_List)
-                        
-                    Items.Inline = Library:Create( "Frame" , {
-                        Parent = Items.Keybind_List;
-                        Name = "\0";
-                        Position = dim2(0, 1, 0, 4);
-                        BorderColor3 = rgb(0, 0, 0);
-                        Size = dim2(1, 6, 1, 22);
-                        BorderSizePixel = 0;
+                        AutomaticSize = Enum.AutomaticSize.Y;
+                        Size = dim2(0, 224, 0, 0);
                         BackgroundColor3 = themes.preset.gradient
-                    });	Library:Themify(Items.Inline, "gradient", "BackgroundColor3")
-                    
+                    });	Library:Themify(Items.Keybind_List, "gradient", "BackgroundColor3"); Library:Draggify(Items.Keybind_List)
+
+                    local stroke = Library:Create( "UIStroke" , {
+                        Color = themes.preset.outline;
+                        Thickness = 1;
+                        LineJoinMode = Enum.LineJoinMode.Miter;
+                        Parent = Items.Keybind_List;
+                        ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+                    }); Library:Themify(stroke, "outline", "Color")
+
+                    Library:Create( "UIListLayout" , {
+                        Parent = Items.Keybind_List;
+                        Padding = dim(0, 0);
+                        SortOrder = Enum.SortOrder.LayoutOrder
+                    });
+
                     Items.Accent = Library:Create( "Frame" , {
                         Parent = Items.Keybind_List;
                         Name = "\0";
-                        Position = dim2(0, 1, 0, 1);
-                        BorderColor3 = rgb(0, 0, 0);
-                        Size = dim2(1, 6, 0, 2);
+                        LayoutOrder = 1;
+                        Size = dim2(0, 224, 0, 2);
+                        BackgroundColor3 = themes.preset.accent;
                         BorderSizePixel = 0;
-                        BackgroundColor3 = themes.preset.accent
+                        BorderColor3 = rgb(0, 0, 0)
                     });	Library:Themify(Items.Accent, "accent", "BackgroundColor3")
-                    
+
                     Library:Create( "UIGradient" , {
                         Rotation = 90;
                         Parent = Items.Accent;
-                        Color = rgbseq{rgbkey(0, rgb(255, 255, 255)), rgbkey(1, rgb(158, 158, 158))}
+                        Color = rgbseq{rgbkey(0, rgb(200, 222, 242)), rgbkey(1, rgb(152, 184, 216))}
                     });
-                    
-                    Items.Outline = Library:Create( "Frame" , {
-                        Parent = Items.Keybind_List;
-                        Name = "\0";
-                        Position = dim2(0, 0, 0, 3);
-                        BorderColor3 = rgb(0, 0, 0);
-                        Size = dim2(1, 7, 0, 1);
-                        BorderSizePixel = 0;
-                        BackgroundColor3 = themes.preset.outline
-                    });	Library:Themify(Items.Outline, "outline", "BackgroundColor3")
-                    
-                    Items.Activity = Library:Create( "TextLabel" , {
-                        FontFace = Library.Font;
-                        TextColor3 = themes.preset.text_color;
-                        BorderColor3 = rgb(0, 0, 0);
-                        Text = "Activity";
-                        Parent = Items.Keybind_List;
-                        Name = "\0";
-                        AutomaticSize = Enum.AutomaticSize.XY;
-                        BackgroundTransparency = 1;
-                        Position = dim2(0, 3, 0, 6);
-                        BorderSizePixel = 0;
-                        ZIndex = 2;
-                        TextSize = 12;
-                        BackgroundColor3 = rgb(255, 255, 255)
-                    });
-                    
-                    Library:Create( "UIStroke" , {
-                        Parent = Items.Activity;
-                        LineJoinMode = Enum.LineJoinMode.Miter
-                    });
-                    
-                    Items.Gradient = Library:Create( "Frame" , {
-                        Parent = Items.Keybind_List;
-                        Name = "\0";
-                        Position = dim2(0, 1, 0, 4);
-                        BorderColor3 = rgb(0, 0, 0);
-                        Size = dim2(1, 6, 0, 16);
-                        BorderSizePixel = 0;
-                        BackgroundColor3 = rgb(255, 255, 255)
-                    });
-                    
-                    local gradient = Library:Create( "UIGradient" , {
-                        Rotation = 90;
-                        Parent = Items.Gradient;
-                        Color = rgbseq{rgbkey(0, themes.preset.inline), rgbkey(1, themes.preset.gradient)}
-                    }); Library:SaveGradient(gradient, "Selected");
-                    
-                    Library:Create( "UIPadding" , {
-                        PaddingBottom = dim(0, 5);
-                        Parent = Items.Keybind_List
-                    });
-                    
-                    Items.Elements = Library:Create( "Frame" , {
+
+                    Items.Content = Library:Create( "Frame" , {
                         BorderColor3 = rgb(0, 0, 0);
                         Parent = Items.Keybind_List;
                         Name = "\0";
                         BackgroundTransparency = 1;
-                        Position = dim2(0, 16, 0, 38);
-                        Size = dim2(1, -8, 0, 0);
-                        BorderSizePixel = 0;
                         AutomaticSize = Enum.AutomaticSize.Y;
+                        Size = dim2(0, 224, 0, 0);
+                        LayoutOrder = 2;
+                        BorderSizePixel = 0;
                         BackgroundColor3 = rgb(255, 255, 255)
-                    }); Library.KeybindParent = Items.Elements
-                    
+                    });
+
                     Library:Create( "UIListLayout" , {
-                        Parent = Items.Elements;
-                        Padding = dim(0, 3);
+                        Parent = Items.Content;
+                        Padding = dim(0, 8);
                         SortOrder = Enum.SortOrder.LayoutOrder
                     });
-                    
+
+                    Library:Create( "UIPadding" , {
+                        PaddingTop = dim(0, 10);
+                        PaddingBottom = dim(0, 5);
+                        PaddingLeft = dim(0, 5);
+                        PaddingRight = dim(0, 5);
+                        Parent = Items.Content
+                    });
+
                     Items.Keybinds = Library:Create( "TextLabel" , {
                         FontFace = Library.Font;
                         TextColor3 = themes.preset.text_color;
                         BorderColor3 = rgb(0, 0, 0);
                         Text = "Keybinds";
-                        Parent = Items.Keybind_List;
+                        Parent = Items.Content;
                         Name = "\0";
-                        AutomaticSize = Enum.AutomaticSize.XY;
+                        AutomaticSize = Enum.AutomaticSize.X;
                         BorderSizePixel = 0;
                         BackgroundTransparency = 1;
-                        Position = dim2(0, 8, 0, 22);
+                        LayoutOrder = 1;
                         RichText = true;
-                        ZIndex = 2;
+                        TextXAlignment = Enum.TextXAlignment.Left;
                         TextSize = 12;
+                        ZIndex = 2;
                         BackgroundColor3 = rgb(255, 255, 255)
                     });
-                    
+
                     Library:Create( "UIStroke" , {
                         Parent = Items.Keybinds;
                         LineJoinMode = Enum.LineJoinMode.Miter
                     });
-                    
-                    Items.Activity = Library:Create( "TextLabel" , {
-                        FontFace = Library.Font;
-                        TextColor3 = themes.preset.text_color;
+
+                    Items.Elements = Library:Create( "Frame" , {
                         BorderColor3 = rgb(0, 0, 0);
-                        Text = "Activity: Ready";
-                        Parent = Items.Keybind_List;
+                        Parent = Items.Content;
                         Name = "\0";
-                        AutomaticSize = Enum.AutomaticSize.XY;
                         BackgroundTransparency = 1;
-                        Position = dim2(0, 6, 1, 8);
+                        Size = dim2(0, 214, 0, 0);
+                        LayoutOrder = 2;
+                        AutomaticSize = Enum.AutomaticSize.Y;
                         BorderSizePixel = 0;
-                        ZIndex = 2;
-                        TextSize = 12;
                         BackgroundColor3 = rgb(255, 255, 255)
-                    });
-                    
-                    Library:Create( "UIStroke" , {
-                        Parent = Items.Activity;
-                        LineJoinMode = Enum.LineJoinMode.Miter
-                    });
-                    
-                    Library:Create( "UIPadding" , {
-                        PaddingBottom = dim(0, 7);
-                        Parent = Items.Activity
-                    });
-                    
-                    Items.ActivityLine = Library:Create( "Frame" , {
-                        Parent = Items.Keybind_List;
-                        Name = "\0";
-                        Position = dim2(0, 5, 1, 5);
-                        BorderColor3 = rgb(0, 0, 0);
-                        Size = dim2(1, -3, 0, 1);
-                        BorderSizePixel = 0;
-                        BackgroundColor3 = rgb(204, 204, 204)
+                    }); Library.KeybindParent = Items.Elements
+
+                    Library:Create( "UIListLayout" , {
+                        Parent = Items.Elements;
+                        Padding = dim(0, 5);
+                        SortOrder = Enum.SortOrder.LayoutOrder
                     });
                 -- 
 
@@ -1890,7 +1835,7 @@
                     Library:Create( "UIGradient" , {
                         Rotation = 90;
                         Parent = Items.Accent;
-                        Color = rgbseq{rgbkey(0, rgb(255, 255, 255)), rgbkey(1, rgb(158, 158, 158))}
+                        Color = rgbseq{rgbkey(0, rgb(200, 222, 242)), rgbkey(1, rgb(152, 184, 216))}
                     });
                     
                     Items.Outline = Library:Create( "Frame" , {
@@ -1905,14 +1850,14 @@
                     
                     Items.WatermarkTitle = Library:Create( "TextLabel" , {
                         FontFace = Library.Font;
-                        TextColor3 = rgb(239, 239, 239);
+                        TextColor3 = themes.preset.text_color;
                         BorderColor3 = rgb(0, 0, 0);
                         RichText = true;
                         Text = Cfg.Name .. "lua";
                         Parent = Items.Watermark;
                         Name = "\0";
                         BackgroundTransparency = 1;
-                        Position = dim2(0, 14, 0, -2);
+                        Position = dim2(0, 0, 0, 0);
                         BorderSizePixel = 0;
                         AutomaticSize = Enum.AutomaticSize.XY;
                         TextSize = 12;
@@ -1925,23 +1870,13 @@
                     });
                     
                     Library:Create( "UIPadding" , {
-                        PaddingTop = dim(0, 5);
-                        PaddingBottom = dim(0, 2);
+                        PaddingTop = dim(0, 7);
+                        PaddingBottom = dim(0, 5);
                         Parent = Items.WatermarkTitle;
-                        PaddingRight = dim(0, 5);
-                        PaddingLeft = dim(0, 5)
+                        PaddingRight = dim(0, 10);
+                        PaddingLeft = dim(0, 10)
                     });
                     
-                    Library:Create( "ImageLabel" , {
-                        BorderColor3 = rgb(0, 0, 0);
-                        Parent = Items.Watermark;
-                        Image = "rbxassetid://133601737414791";
-                        BackgroundTransparency = 1;
-                        Position = dim2(0, 3, 0, 2);
-                        Size = dim2(0, 11, 0, 15);
-                        BorderSizePixel = 0;
-                        BackgroundColor3 = rgb(255, 255, 255)
-                    });
                 --
             end
 
@@ -2000,8 +1935,6 @@
             end
 
             function Cfg.ToggleStatus(bool) 
-                Items.Activity.Visible = bool
-                Items.ActivityLine.Visible = bool
             end
 
             function Cfg.ToggleKeybindList(bool)
@@ -2070,6 +2003,15 @@
                         BorderSizePixel = 0;
                         BackgroundColor3 = themes.preset.gradient
                     });	Library:Themify(Items.Fill, "gradient", "BackgroundColor3")
+                    
+                    self.TabsList = self.TabsList or {};
+                    for _, prevTab in ipairs(self.TabsList) do
+                        if prevTab.Fill and prevTab ~= Cfg.Items then
+                            prevTab.Fill.Size = dim2(1, -2, 0, 1);
+                        end
+                    end;
+                    table.insert(self.TabsList, Cfg.Items);
+                    Items.Fill.Size = dim2(1, 0, 0, 1);
                     
                     local gradient = Library:Create( "UIGradient" , {
                         Rotation = 90;
@@ -2794,7 +2736,7 @@
                     Library:Create( "UIGradient" , {
                         Rotation = 90;
                         Parent = Items.Accent;
-                        Color = rgbseq{rgbkey(0, rgb(255, 255, 255)), rgbkey(1, rgb(158, 158, 158))}
+                        Color = rgbseq{rgbkey(0, rgb(200, 222, 242)), rgbkey(1, rgb(152, 184, 216))}
                     });
                     
                     Items.Outline = Library:Create( "Frame" , {
@@ -2829,7 +2771,7 @@
                         Parent = Items.Buttons;
                         FillDirection = Enum.FillDirection.Horizontal;
                         SortOrder = Enum.SortOrder.LayoutOrder;
-                        Padding = dim(0, -1);
+                        Padding = dim(0, 1);
                     });
                     
                     Library:Create( "UIPadding" , {
@@ -2907,7 +2849,7 @@
                 Library:Create( "UIGradient" , {
                     Rotation = 90;
                     Parent = Items.Accent;
-                    Color = rgbseq{rgbkey(0, rgb(255, 255, 255)), rgbkey(1, rgb(158, 158, 158))}
+                    Color = rgbseq{rgbkey(0, rgb(200, 222, 242)), rgbkey(1, rgb(152, 184, 216))}
                 });
                 
                 Items.Outline = Library:Create( "Frame" , {
@@ -3259,7 +3201,7 @@
                 Library:Create( "UIGradient" , {
                     Rotation = 90;
                     Parent = Items.Accent;
-                    Color = rgbseq{rgbkey(0, rgb(255, 255, 255)), rgbkey(1, rgb(158, 158, 158))}
+                    Color = rgbseq{rgbkey(0, rgb(200, 222, 242)), rgbkey(1, rgb(152, 184, 216))}
                 });
                 
                 Items.Outline = Library:Create( "Frame" , {
@@ -3354,7 +3296,7 @@
                 Library:Create( "UIGradient" , {
                     Rotation = 90;
                     Parent = Items.Accent;
-                    Color = rgbseq{rgbkey(0, rgb(255, 255, 255)), rgbkey(1, rgb(158, 158, 158))}
+                    Color = rgbseq{rgbkey(0, rgb(200, 222, 242)), rgbkey(1, rgb(152, 184, 216))}
                 });
 
                 Items.Name = Library:Create( "TextLabel" , {
@@ -3575,7 +3517,7 @@
                 Library:Create( "UIGradient" , {
                     Rotation = 90;
                     Parent = Items.Accent;
-                    Color = rgbseq{rgbkey(0, rgb(255, 255, 255)), rgbkey(1, rgb(158, 158, 158))}
+                    Color = rgbseq{rgbkey(0, rgb(200, 222, 242)), rgbkey(1, rgb(152, 184, 216))}
                 });
                 
                 Items.Value = Library:Create( "TextLabel" , {
@@ -4332,7 +4274,7 @@
 
                 Key = properties.Key or nil;
                 Mode = properties.Mode or "Toggle";
-                Active = properties.Default or false; 
+                Active = properties.Default or false;
                 
                 Show = properties.ShowInList or true;
 
@@ -4470,7 +4412,7 @@
                     Library:Create( "UIGradient" , {
                         Rotation = 90;
                         Parent = Items.Accent;
-                        Color = rgbseq{rgbkey(0, rgb(255, 255, 255)), rgbkey(1, rgb(158, 158, 158))}
+                        Color = rgbseq{rgbkey(0, rgb(200, 222, 242)), rgbkey(1, rgb(152, 184, 216))}
                     });
                     
                     Items.Outline = Library:Create( "Frame" , {
@@ -4816,7 +4758,7 @@
             Section:Toggle({Name = "Toggle Status", Flag = "Status", Callback = window.ToggleStatus})
             Section:Textbox({Name = "Custom Menu Name", Callback = window.ChangeTitle, Default = window.Name, Placeholder = "Title name here..."})
             Section:Textbox({Name = "Custom Watermark Name", Callback = window.ChangeWatermarkTitle, Default = window.Name .. ".lua", Placeholder = "Title name here..."})
-            Section:Dropdown({Name = "Tweening Style", Options = {"Linear", "Sine", "Back", "Quad", "Quart", "Quint", "Bounce", "Elastic", "Exponential", "Circular", "Cubic"}, Flag = "LibraryEasingStyle", Default = "Cubic", Callback = function(Option)
+            Section:Dropdown({Name = "Tweening Style", Options = {"Linear", "Sine", "Back", "Quad", "Quart", "Quint", "Bounce", "Elastic", "Exponential", "Circular", "Cubic"}, Flag = "LibraryEasingStyle", Default = "Quad", Callback = function(Option)
                 Library.EasingStyle = Enum.EasingStyle[Option]
             end});
             Section:Slider({Name = "Tweening Speed", Min = 0, Max = 10, Decimal = 0.01, Suffix = "s", Default = 0.15, Flag = "TweeningSpeed", Callback = function(int)
@@ -4955,7 +4897,7 @@
                 Items.Text = Library:Create( "TextLabel" , {
                     FontFace = Library.Font;
                     Parent = Items.Inline;
-                    TextColor3 = rgb(255, 255, 255);
+                    TextColor3 = themes.preset.text_color;
                     BorderColor3 = rgb(0, 0, 0);
                     Text = Cfg.Name;
                     Name = "\0";
